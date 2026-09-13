@@ -52,7 +52,7 @@ describe('ProductService Tests', () => {
 		expect(product.leadTime).toBe(15);
 		expect(notificationServiceMock.sendDelayNotification).toHaveBeenCalledWith(product.leadTime, product.name);
 		const result = await databaseMock.query.products.findFirst({
-			where: (product, {eq}) => eq(product.id, product.id),
+			where: (candidate, {eq}) => eq(candidate.id, product.id),
 		});
 		expect(result).toEqual(product);
 	});
