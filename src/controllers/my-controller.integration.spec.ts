@@ -11,6 +11,7 @@ import {type INotificationService} from '@/services/notifications.port.js';
 import {
 	type Product,
 	type ProductInsert,
+	type ProductType,
 	products,
 	orders,
 	ordersToProducts,
@@ -215,7 +216,8 @@ describe('POST /orders/:orderId/processOrder', () => {
 		// Characterises existing behaviour: an unknown type is skipped without any signal.
 		it('silently ignores a product of an unknown type', async () => {
 			const product = await processOrderOf({
-				type: 'MYSTERY', name: 'Unobtainium', available: 30, leadTime: 15,
+				// The database does not constrain the column, so this row is reachable.
+				type: 'MYSTERY' as ProductType, name: 'Unobtainium', available: 30, leadTime: 15,
 			});
 
 			expect(product.available).toBe(30);

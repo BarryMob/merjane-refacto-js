@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/switch-exhaustiveness-check */
 /* eslint-disable max-depth */
 /* eslint-disable no-await-in-loop */
 import {eq} from 'drizzle-orm';
