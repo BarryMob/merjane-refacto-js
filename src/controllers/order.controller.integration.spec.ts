@@ -165,7 +165,7 @@ describe('POST /orders/:orderId/processOrder', () => {
 		});
 
 		// Characterises existing behaviour: an in-date product that is merely out of
-		// stock is reported as expired. Kept as-is, to be confirmed with the business.
+		// stock is reported as expired. See the follow-up note in the README.
 		it('notifies the expiration of an in-date product that is out of stock', async () => {
 			const expiryDate = inDays(26);
 			const product = await processOrderOf({

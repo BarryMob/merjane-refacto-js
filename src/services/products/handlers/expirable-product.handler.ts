@@ -25,7 +25,7 @@ export class ExpirableProductHandler implements ProductHandler {
 		}
 
 		// Pre-existing behaviour: a product that is out of stock but still in date is
-		// reported as expired too. To be confirmed with the business.
+		// reported as expired too. See "Open questions" in the README.
 		this.notificationService.sendExpirationNotification(product.name, product.expiryDate!);
 		await this.productRepository.markAsUnavailable(product);
 	}
