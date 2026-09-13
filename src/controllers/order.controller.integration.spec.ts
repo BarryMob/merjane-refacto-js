@@ -220,6 +220,19 @@ describe('POST /orders/:orderId/processOrder', () => {
 				.expect(404);
 		});
 
+		it.each(['-1', '0', '1.5'])('rejects %s as an order id', async orderId => {
+			await supertest(fastify.server)
+				.post(`/orders/${orderId}/processOrder`)
+				.expect(400);
+		});
+
+		// Characterises existing behaviour: a non-numeric id was already rejected.
+		it('rejects an order id that is not a number', async () => {
+			await supertest(fastify.server)
+				.post('/orders/not-an-id/processOrder')
+				.expect(400);
+		});
+
 		// Characterises existing behaviour: an unknown type is skipped without any signal.
 		it('silently ignores a product of an unknown type', async () => {
 			const product = await processOrderOf({

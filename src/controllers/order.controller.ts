@@ -10,7 +10,7 @@ export const orderController = fastifyPlugin(async server => {
 	server.withTypeProvider<ZodTypeProvider>().post('/orders/:orderId/processOrder', {
 		schema: {
 			params: z.object({
-				orderId: z.coerce.number(),
+				orderId: z.coerce.number().int().positive(),
 			}),
 		},
 	}, async (request, reply) => {
