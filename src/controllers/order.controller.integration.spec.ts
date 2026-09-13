@@ -213,6 +213,13 @@ describe('POST /orders/:orderId/processOrder', () => {
 			expect(notifications.sendExpirationNotification).toHaveBeenCalledWith('Milk', expect.any(Date));
 		});
 
+		// Deliberate change: the previous code crashed with a 500 on an unknown order.
+		it('answers 404 when the order does not exist', async () => {
+			await supertest(fastify.server)
+				.post('/orders/404/processOrder')
+				.expect(404);
+		});
+
 		// Characterises existing behaviour: an unknown type is skipped without any signal.
 		it('silently ignores a product of an unknown type', async () => {
 			const product = await processOrderOf({
