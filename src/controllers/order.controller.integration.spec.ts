@@ -32,7 +32,7 @@ describe('POST /orders/:orderId/processOrder', () => {
 
 		fastify = await buildFastify();
 		fastify.diContainer.register({
-			ns: asValue(notifications as INotificationService),
+			notificationService: asValue(notifications as INotificationService),
 		});
 		await fastify.ready();
 		database = fastify.database;
